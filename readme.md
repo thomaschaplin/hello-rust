@@ -1,6 +1,6 @@
 # hello-rust
 
-Simple Implementation of the classic `hello world` written in [rust](https://www.rust-lang.org/)
+Simple implementation of the classic `hello world` written in [rust](https://www.rust-lang.org/)
 
 ## Setup
 
