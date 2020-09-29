@@ -1,7 +1,11 @@
-use ferris_says::say; // from the previous step
+use ferris_says::say;
 use std::io::{stdout, BufWriter};
 
 fn main() {
+    hello_world()
+}
+
+fn hello_world() {
     let stdout = stdout();
     let message = String::from("Hello fellow Rustaceans!");
     let width = message.chars().count();
