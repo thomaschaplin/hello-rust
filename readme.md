@@ -26,3 +26,15 @@ Make sure you have [rust](https://www.rust-lang.org/) installed on your machine 
                 '_   -   _'
                 / '-----' \
 ```
+
+# Docker Setup
+
+Build
+```
+docker build --rm -f Dockerfile -t thomaschaplin:hello-rust .
+```
+
+Run
+```
+docker run --rm -it thomaschaplin:hello-rust
+```
