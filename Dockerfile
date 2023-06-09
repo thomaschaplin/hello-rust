@@ -1,17 +1,47 @@
-FROM rust:latest as build
+####################################################################################################
+## Builder
+####################################################################################################
+FROM rust:latest AS builder
 
-USER root
+RUN rustup target add x86_64-unknown-linux-musl
+RUN apt update && apt install -y musl-tools musl-dev
+RUN update-ca-certificates
+
+# Create appuser
+ENV USER=hello-rust
+ENV UID=10001
+
+RUN adduser \
+    --disabled-password \
+    --gecos "" \
+    --home "/nonexistent" \
+    --shell "/sbin/nologin" \
+    --no-create-home \
+    --uid "${UID}" \
+    "${USER}"
+
 
 WORKDIR /hello-rust
 
-COPY ./Cargo.lock ./Cargo.lock
-COPY ./Cargo.toml ./Cargo.toml
-COPY ./src ./src
+COPY ./ .
 
-RUN cargo build --release
+RUN cargo build --target x86_64-unknown-linux-musl --release
 
-FROM rust:latest
+####################################################################################################
+## Final Image
+####################################################################################################
+FROM scratch
 
-COPY --from=build /hello-rust/target/release/hello-rust .
+# Import from builder.
+COPY --from=builder /etc/passwd /etc/passwd
+COPY --from=builder /etc/group /etc/group
 
-CMD ["./hello-rust"]
+WORKDIR /hello-rust
+
+# Copy our build
+COPY --from=builder /hello-rust/target/x86_64-unknown-linux-musl/release/hello-rust ./
+
+# Use an unprivileged user.
+USER hello-rust:hello-rust
+
+ENTRYPOINT ["./hello-rust"]

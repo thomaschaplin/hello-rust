@@ -1,3 +1,5 @@
+extern crate ferris_says;
+
 use ferris_says::say;
 use std::io::{stdout, BufWriter};
 
@@ -11,5 +13,5 @@ fn hello_world() {
     let width = message.chars().count();
 
     let mut writer = BufWriter::new(stdout.lock());
-    say(message.as_bytes(), width, &mut writer).unwrap();
+    say(&message, width, &mut writer).unwrap();
 }
