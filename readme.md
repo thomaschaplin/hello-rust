@@ -16,15 +16,15 @@ Make sure you have [rust](https://www.rust-lang.org/) installed on your machine 
 #### Expected output:
 
 ```
-----------------------------
-| Hello fellow Rustaceans! |
-----------------------------
-              \
-               \
-                  _~^~^~_
-              \) /  o o  \ (/
-                '_   -   _'
-                / '-----' \
+ __________________________
+< Hello fellow Rustaceans! >
+ --------------------------
+        \
+         \
+            _~^~^~_
+        \) /  o o  \ (/
+          '_   -   _'
+          / '-----' \
 ```
 
 # Docker Setup
